@@ -1,1 +1,2 @@
-alert("test")
+alert("1");
+alert(cat)

@@ -1,8 +1,7 @@
 .header {
-    background: orange;
+    background-color: orange;
     height: 11vh;
 }
-
 .logo {
     color: cyan;
     height: 10vh;
@@ -28,5 +27,12 @@ max-height: 32vh;
 }
 .img_product {
 height: 30vh;
+}
+.promo {
+    color: red;
+    font-weight: bolder;
+}
+.paspromo {
+    border-color: blue;
 
 }
