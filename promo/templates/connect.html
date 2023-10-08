@@ -1,0 +1,48 @@
+{%  extends "base.html" %}
+
+{% block title %}
+MERCODONA
+{%  endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="http://localhost:8080/CSS/form.css">
+{%  endblock %}
+
+{%  block content %}
+    <div >
+        <h5 class="avert text-center">l' authentifiction est réservée à l'administration du site.
+            Si vous n'êtes pas administrateur du site,
+            <a href="http://localhost:8000/promo">veuillez fermer ce formulaire.</a>
+            <br>
+            Vous êtes administrateur et n'avez pas encore de compte,
+            <a href="http://localhost:8000/promo/register">Inscrivez-vous.</a>
+        </h5>
+        <h1 class="text-center">Inscription</h1>
+        <form  class="justify-content-center" method="post">
+            <input type="hidden" name="csrfmiddlewaretoken" value="fUJ1pHaTryWbjUeW0B6vigvCZpi1L3LhSG2qQpupjhwIxRGjWcvM2xwy7oLVKw5i">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-4"></div>
+                <p class="col-4 row">
+                    <label class="col-5" for="id_email">Pseudonyme:</label>
+                    <input class="col-7" type="text" name="email" maxlength="150" id="id_email" requred>
+                </p>
+                <div class="col-4"></div>
+                <div class="col-4"></div>
+                <p class="col-4 row">
+                    <label class="col-5" for="id_password">Password:</label>
+                    <input class="col-7" type="password" name="password" maxlength="64" id="id_password"
+                           title="Must contain at least one number and one uppercase and lowercase letter, and at least
+                            8 or more characters" required>
+                </p>
+                <div class="col-4"></div>
+
+                <div class="col-5"></div>
+
+                <button class="col-2 mx-3" type="submit">Se connecter</button>
+            </div>
+        </form>
+    </div>
+
+{%  endblock %}
+

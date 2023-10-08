@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'promo.apps.PromoConfig',
     'rest_framework',
+
 ]
 
 MIDDLEWARE = [
@@ -88,6 +89,9 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = 'promo.User'
+#CSRF_COOKIE_SECURE = False
+#SESSION_COOKIE_SECURE = False
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

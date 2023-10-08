@@ -1,0 +1,32 @@
+.header {
+    background-color: orange;
+    height: 11vh;
+}
+.logo {
+    color: cyan;
+    height: 10vh;
+    font-size: 5.5vh;
+}
+
+.mi-header {
+    height: 10vh;
+}
+
+.maxime {
+    font-size: 4vh;
+    height: 7vh;
+}
+
+.category-filter {
+    font-size: 3vh;
+}
+.connect {
+    width: 10vw;
+}
+.showiconlogo {
+    height: 2vh;
+}
+.conimg {
+    height: 10%;
+    width: 10%;
+}

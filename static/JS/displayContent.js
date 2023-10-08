@@ -1,16 +1,11 @@
-// au chargement de la page
-
 document.addEventListener("DOMContentLoaded", function () {
-    // Sélécteur de catégorie
     const categoryFilter = document.getElementById("category-filter");
-    // Gallerie de produits
     const productList = document.getElementById("product-list");
     //Checkbox 'que les promotions'
     const promochek = document.getElementById("sel-promo");
 
-
-    // Fonction remplissage du selecteur de categorie
     function fillCategories(categr) {
+        // Sélécteur de catégorie
         $.ajax({
             url: '/promo/api/categories',
             method: "GET",
@@ -19,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 var i = 0;
                 data.forEach(category => {
                     const option = document.createElement("option");
-                    option.value = data[i].id;
+                    //option.value = data[i].id;
                     option.textContent = data[i].label;
                     categoryFilter.appendChild(option);
                     i++
@@ -29,14 +24,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error("Problème de récupération des catégories :", xhr, status, error);
             }
         });
+
     }
+
+    fillCategories()
 
     //Affichage d'un produit
     function fillOneProduct(prodcat, prodlab, prodimg, proddsc, prodprice, prodpromo) {
-        //alert("oneprod")
         if (categoryFilter.value == 'all' || prodcat == categoryFilter.value) {
             if ((promochek.checked == false) || (promochek.checked == true && prodpromo == "promo")) {
+
                 var productHtml = `
+
                     <div class="col-2">
                         <ul class="list-unstyled">
                             <li>
@@ -54,11 +53,10 @@ document.addEventListener("DOMContentLoaded", function () {
                         <div class="text-justify">
                             <span>${proddsc}</span>
                         </div>
-                    </div>
-                `;
+                    `;
                 $(".row").append(productHtml);
             }
-        }
+         }
     }
 
     // Fonction de remplissage de la liste des produits en fonction de la catégorie sélectionnée et de la checkbox
@@ -69,20 +67,19 @@ document.addEventListener("DOMContentLoaded", function () {
             productList.removeChild(productList.firstChild);
         }
         //recuperation et traitement des produits
-        //alert("oneprod");
+
         $.ajax({
             url: `/promo/api/products`,
             method: "GET",
             dataType: "json",
             success: function (data) {
                 data.forEach(product => {
-
                     prod_cat = product.category;
                     prod_lab = product.product_label;
                     prod_img = product.image;
                     prod_desc = product.description;
                     prod_price = product.price;
-                    ;
+
                     if (product.promo === null || product.promo === undefined) {
                         prod_promo = "paspromo"
                     } else {
@@ -97,8 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             prod_promo = "paspromo"
                         }
                     }
-                    //alert(product.price)
-                    fillOneProduct(prod_cat, prod_lab , prod_img, prod_desc, prod_price, prod_promo);
+                    fillOneProduct(prod_cat, prod_lab , prod_img, prod_desc, prod_price);
                 })
             },
             error: function (error) {
@@ -118,6 +114,5 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
      // execution Gallerie
-    fillCategories();
     fillProducts()
-});
+})
