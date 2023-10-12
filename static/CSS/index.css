@@ -1,3 +1,4 @@
+
 .header {
     background-color: orange;
     height: 11vh;
@@ -18,15 +19,11 @@
 }
 
 .category-filter {
-    font-size: 3vh;
+    font-size: 3em;
 }
 
-.vignette {
-max-height: 32vh;
-
-}
 .img_product {
-height: 30vh;
+height: 20vh;
 }
 .promo {
     color: red;
@@ -39,3 +36,9 @@ height: 30vh;
 .btn-inscription {
     text-align: center;
 }
+.vignette {
+    margin: 1vh;
+    max-height: 45vh;
+    height: 80vh;
+}
+

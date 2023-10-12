@@ -1,6 +1,7 @@
 .header {
     background-color: orange;
     height: 11vh;
+    width: 90%;
 }
 .logo {
     color: cyan;

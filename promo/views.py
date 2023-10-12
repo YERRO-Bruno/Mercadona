@@ -1,18 +1,79 @@
-from .models import Promotion, Product, Category, User, VerifAdmin, Role
-from django.shortcuts import render,redirect
+from .models import Product, Category, User, VerifAdmin, Role
+from django.shortcuts import render,redirect, get_object_or_404
 from django.http import JsonResponse
 from rest_framework import viewsets
-from .serializers import PromotionSerializer, ProductSerializer
+from .serializers import ProductSerializer
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .managers import UserManager
+from django.http import HttpResponse
+from django.template import RequestContext
+from django.template.context_processors import csrf
+import os
 
 def index(request):
-    #product_list = Product.objects.all()
-    #context = {"product_list" : product_list}
-
     return render(request , "index.html")
+
+def administration(request):
+    if request.user.is_authenticated:
+        userx=request.user
+        context = {}
+        context.update(csrf(request))
+        context.update({'login':'logged'})
+        if request.method == 'POST':
+            print("admin2")
+            action = request.POST.get('action', '')
+            idx = request.POST['prodid']
+            # btncx = request.POST['BTNC']
+            # print(btnc)
+            btnx = request.POST['BTN']
+            addcatx = request.POST['addcat']
+            imgx = request.POST['fileimage']
+            labelx = request.POST['label']
+            descriptionx = request.POST['description']
+            catx = Category.objects.get(label = request.POST['categ'])
+            pricex = request.POST['price']
+            promox = request.POST['promo']
+            beginx = request.POST['begin']
+            endx = request.POST['end']
+            context['prodid'] = idx
+            context['label'] = labelx
+            print(context)
+            if btnx == "addcat":
+                controlCategory()
+                createCategory(addcatx)
+                messages.add_message(request, messages.INFO, "Catégorie ajoutée")
+                return render(request, "administration.html", context)
+            if btnx == "new":
+                if idx is not None:
+                    messages.add_message(request, messages.INFO, "vous devez 'Effacer les champs' avant de 'créer produit'")
+                    return render(request, "administration.html", context)
+                else:
+                    controleProduct()
+                    createProduct(labelx, descriptionx, catx, imgx, pricex,promox, beginx, endx)
+                    messages.add_message(request, messages.INFO, "Produit ajoutéé")
+                    return render(request, "administration.html")
+            if btnx == "updat":
+                controleProduct()
+                updateProduct(idx, labelx, descriptionx, catx, imgx, pricex, promox, beginx, endx)
+                messages.add_message(request, messages.INFO, "Produit modifié")
+                return render(request, "administration.html", context)
+            if btnx == "suppr":
+                deleteProduct(idx)
+                messages.add_message(request, messages.INFO, "Produit supprimé")
+                return render(request, "administration.html")
+        return render(request , "administration.html", context)
+    else:
+        messages.add_message(request, messages.INFO, "Vous n' êtes pas connecté")
+        return redirect("/promo/connect")
+
+
+def logout(request):
+    #logout(request)
+    messages.add_message(request, messages.INFO, "Vous êtes déconnecté")
+    return redirect("/promo")
+
 
 #Inscription administrateur
 def register(request):
@@ -21,6 +82,7 @@ def register(request):
        passwordx = request.POST['password']
        verificationx = request.POST['verification']
        verif_admins = VerifAdmin.objects.all()
+       #recherche du cpde de verification pour l'email de l'administrateur à créer
        for i in range(len(verif_admins)):
             if (verif_admins[i].email == emailx and verif_admins[i].verification == verificationx ) :
                 roles = Role.objects.all()
@@ -32,22 +94,27 @@ def register(request):
                 Userx.save()
                 # suppression de l'enregistrememnt du code de verification et de l'email associée
                 verif_admins[i].delete()
-                return render(request, 'administration.html')
+                #connexion
+                login(request, userConnected)
+                messages.add_message(request, messages.INFO, "Vous êtes connecté.")
+                return redirect('/promo/administration')
        #Pas autentifié
-       return render(request, 'index.html', {'login': '---------'} )
-    else:
-        return render(request, 'register.html',)
+       messages.add_message(request, messages.INFO, "Vous n' avez pas été authentifié." )
+       return redirect('/promo/register')
+
 
 def connect(request):
     if request.method == 'POST':
         emailx = request.POST['email']
         passwordx = request.POST['password']
-        userx = authenticate(email=emailx, password=passwordx)
-        if userx is not None:
-            return render(request, 'index.html', {'login': emailx})
+        userConnected = authenticate(email=emailx, password=passwordx)
+        if userConnected is not None:
+            login(request, userConnected )
+            messages.add_message(request, messages.INFO, "Vous êtes connecté.")
+            return redirect('/promo/administration')
         else:
-            return render(request, 'index.html', {'login': 'connectez-vous'} )
-
+            messages.add_message(request, messages.INFO, "Vous n' avez pas été authentifié")
+            return render(request, 'connect.html', {'errorLogin': "Email et/ou mot de passe erroné"})
     else:
         return render(request, 'connect.html')
 
@@ -65,22 +132,68 @@ def api_products(request):
         'category_id': product.category_id, 'price': product.price, 'image': product.image} for product in products]
     return JsonResponse(products_json, safe = False)
 
+
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
-class PromotionViewSet(viewsets.ModelViewSet):
-    queryset = Promotion.objects.all()
-    serializer_class = PromotionSerializer
 
-#CRUD VerifAdmin
-#UPLOAD VerifAdin
+def createProduct(prodlab, proddesc, prodcat, prodimg, prodprice, prodreduc, prodbegin, prodend):
+        prodx = Product()
+        prodx.product_label = prodlab
+        prodx.description = proddesc
+        prodx.category = prodcat
+        prodx.image = prodimg
+        prodx.price = prodprice
+        prodx.reduction = prodreduc
+        prodx.begin_promo = prodbegin
+        prodx.end_promo = prodend
+        prodx.save()
 
-#CREATE VerifAdin
 
-#UPDATE VerifAdin
+def updateProduct(prodid, prodlab, proddesc, prodcat, prodimg, prodprice, prodreduc, prodbegin, prodend):
+    prodx = Product.objects.get(id=prodid)
+    prodx.product_label = prodlab
+    prodx.description = proddesc
+    prodx.category = prodcat
+    prodx.image = prodimg
+    prodx.price = prodprice
+    prodx.reduction = prodreduc
+    prodx.begin_promo = prodbegin
+    prodx.end_promo = prodend
+    prodx.save()
 
-#DELETE VerifAdin
+
+def deleteProduct(prodid):
+        prodx = Product.objects.get(id=prodid)
+        prodx.delete()
+
+
+def createCategory(categ):
+    categx = Category()
+    categx.label = categ
+    categx.save()
+
+
+def controlCategory():
+    print("control category")
+
+
+def controleProduct():
+    print("control product")
+
+
+def upload_image(request):
+    if request.method == 'POST' and request.FILES.get('image'):
+        image = request.FILES['image']
+        destination_path = os.path.join('static/images', image.name)
+        with open(destination_path, 'wb') as f:
+            for chunk in image.chunks():
+                f.write(chunk)
+        return JsonResponse({'message': 'Image téléchargée avec succès'})
+    return JsonResponse({'message': 'Échec du téléchargement de l\'image'}, status=400)
+
+
 
 
 

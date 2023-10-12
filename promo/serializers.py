@@ -1,17 +1,15 @@
-from .models import Promotion, Product
+from .models import Product, Category
 from rest_framework import serializers
 
-
-class PromotionSerializer(serializers.ModelSerializer):
+class CategorySerializer (serializers.ModelSerializer):
     class Meta:
-        model = Promotion
-        fields = ['percent_promo', 'begin_date', 'end_date']
+        model =Category
+        fields = ['id', 'label' ]
 
 class ProductSerializer(serializers.ModelSerializer):
-    promo = PromotionSerializer()
+    category = CategorySerializer()
+
     class Meta:
         model = Product
-        fields = ['product_label', 'description', 'category', 'price', 'image', 'promo']
-
-
+        fields = ['id', 'product_label', 'description', 'category', 'price', 'image', 'reduction', 'begin_promo', 'end_promo']
 

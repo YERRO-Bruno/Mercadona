@@ -1,10 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
+
     const categoryFilter = document.getElementById("category-filter");
     const productList = document.getElementById("product-list");
     //Checkbox 'que les promotions'
     const promochek = document.getElementById("sel-promo");
 
-    function fillCategories(categr) {
+    function fillCategories() {
         // Sélécteur de catégorie
         $.ajax({
             url: '/promo/api/categories',
@@ -29,34 +30,40 @@ document.addEventListener("DOMContentLoaded", function () {
 
     fillCategories()
 
-    //Affichage d'un produit
-    function fillOneProduct(prodcat, prodlab, prodimg, proddsc, prodprice, prodpromo) {
+    //affichage produit courant
+    function fillOneProduct(prodid, prodcat, prodlab, prodimg, proddsc, prodprice, prodpromo) {
+        //alert("oneproduct")
         if (categoryFilter.value == 'all' || prodcat == categoryFilter.value) {
+
             if ((promochek.checked == false) || (promochek.checked == true && prodpromo == "promo")) {
-
                 var productHtml = `
-
-                    <div class="col-2">
-                        <ul class="list-unstyled">
-                            <li>
-                                <div class="text-center" style="height: 20%">
-                                    <span>${prodlab}</span>
-                                </div>
-                                <div class="text-justify text-center">
-                                    <span class="${prodpromo}">${prodprice}</span>
-                                </div>
-                                <div class="mx-auto vignette text-center">
-                                    <img class="img_product" src=" http://localhost:8080/images/${prodimg}">
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="text-justify">
-                            <span>${proddsc}</span>
+                    <div class="col-2 " id="${prodid}">
+                        <div class="border border-primary vignette " id="XXXXXXX" >
+                            <ul class="ul-vignette border list-unstyled" >
+                                <li>
+                                    <div id="id_vignettexx">
+                                        <div class="text-center" id="id_vignette1">
+                                            <span>${prodlab}</span>
+                                        </div>
+                                        <div class="text-justify text-center" id="id_vignette2">
+                                            <span class="${prodpromo}">${prodprice}</span>
+                                        </div>
+                                        <div class="mx-auto text-center" id="id_vignette3">
+                                            <img class="img_product" src=" http://localhost:8080/images/${prodimg}">
+                                        </div>
+                                        <div class="descript" id="id_vignette4">
+                                            <span>${proddsc}</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
+                    </div>
                     `;
-                $(".row").append(productHtml);
+                //display new current product
+                $(".gallery").append(productHtml);
             }
-         }
+        }
     }
 
     // Fonction de remplissage de la liste des produits en fonction de la catégorie sélectionnée et de la checkbox
@@ -67,34 +74,36 @@ document.addEventListener("DOMContentLoaded", function () {
             productList.removeChild(productList.firstChild);
         }
         //recuperation et traitement des produits
-
         $.ajax({
             url: `/promo/api/products`,
             method: "GET",
             dataType: "json",
             success: function (data) {
                 data.forEach(product => {
-                    prod_cat = product.category;
+                    // alert("product")
+                    prod_id = product.id
+                    prod_cat = product.category.label;
                     prod_lab = product.product_label;
                     prod_img = product.image;
                     prod_desc = product.description;
                     prod_price = product.price;
-
-                    if (product.promo === null || product.promo === undefined) {
+                    prod_begin = product.begin_promo
+                    prod_end = product.end_promo
+                    if (product.reduction == 0) {
                         prod_promo = "paspromo"
                     } else {
-                        prod_price = product.price*(1-product.promo.percent_promo/100);
+                        prod_price = product.price*(1-product.reduction/100);
                         prod_price = Number(prod_price).toFixed(2);
                         var dateDuJour = new Date();
-                        var date1 = new Date(product.promo.begin_date);
-                        var date2 = new Date(product.promo.end_date);
+                        var date1 = new Date(product.begin_promo);
+                        var date2 = new Date(product.end_promo);
                         if (date1 <= dateDuJour && date2 >= dateDuJour) {
                             prod_promo = "promo";
                         } else {
                             prod_promo = "paspromo"
                         }
                     }
-                    fillOneProduct(prod_cat, prod_lab , prod_img, prod_desc, prod_price);
+                    fillOneProduct(prod_id, prod_cat, prod_lab , prod_img, prod_desc, prod_price, prod_promo);
                 })
             },
             error: function (error) {
@@ -113,6 +122,6 @@ document.addEventListener("DOMContentLoaded", function () {
         fillProducts();
     });
 
-     // execution Gallerie
+    // execution Gallerie
     fillProducts()
 })
