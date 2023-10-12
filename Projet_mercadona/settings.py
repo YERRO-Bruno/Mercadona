@@ -90,6 +90,7 @@ DATABASES = {
 }
 
 AUTH_USER_MODEL = 'promo.User'
+
 #CSRF_COOKIE_SECURE = False
 #SESSION_COOKIE_SECURE = False
 

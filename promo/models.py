@@ -58,17 +58,13 @@ class Product(models.Model):
     category = models.ForeignKey("Category", on_delete=models.CASCADE)
     image = models.CharField(null=True, max_length=64)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    promo = models.OneToOneField ("Promotion", null=True, blank= True , on_delete=models.SET_NULL)
+    reduction = models.DecimalField(max_digits=10, decimal_places=2)
+    begin_promo = models.DateField(null=True)
+    end_promo = models.DateField(null=True)
+
     def __str__(self):
         return str(self.product_label)
 
 
-class Promotion(models.Model):
-    product_promo = models.OneToOneField("Product", on_delete=models.CASCADE)
-    begin_date = models.DateField(null=True)
-    end_date = models.DateField(null=True)
-    percent_promo = models.DecimalField(max_digits=10, decimal_places=2)
 
-    def __str__(self):
-        return str(self.product_promo)
 

@@ -5,10 +5,11 @@ MERCODONA
 {%  endblock %}
 
 {% block style %}
-    <link rel="stylesheet" href="http://localhost:8080/CSS/form.css">
+    <link rel="stylesheet" href="http://localhost:8080/CSS/connect.css">
 {%  endblock %}
 
 {%  block content %}
+
     <div >
         <h5 class="avert text-center">l' authentifiction est réservée à l'administration du site.
             Si vous n'êtes pas administrateur du site,
@@ -18,9 +19,10 @@ MERCODONA
             <a href="http://localhost:8000/promo/register">Inscrivez-vous.</a>
         </h5>
         <h1 class="text-center">Inscription</h1>
+        <h6 class="texterror text-center">{{ errorLogin }}</h6>
         <form  class="justify-content-center" method="post">
-            <input type="hidden" name="csrfmiddlewaretoken" value="fUJ1pHaTryWbjUeW0B6vigvCZpi1L3LhSG2qQpupjhwIxRGjWcvM2xwy7oLVKw5i">
             {% csrf_token %}
+
             <div class="row">
                 <div class="col-4"></div>
                 <p class="col-4 row">
@@ -36,10 +38,11 @@ MERCODONA
                             8 or more characters" required>
                 </p>
                 <div class="col-4"></div>
-
                 <div class="col-5"></div>
-
-                <button class="col-2 mx-3" type="submit">Se connecter</button>
+                <div class="col-3">
+                    <a href="/promo"><button type="button">Cancel</button></a>
+                    <button class="mx-3" type="submit">Se connecter</button>
+                </div>
             </div>
         </form>
     </div>
