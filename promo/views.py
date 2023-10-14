@@ -22,7 +22,7 @@ def administration(request):
         context.update(csrf(request))
         context.update({'login':'logged'})
         if request.method == 'POST':
-            print("admin2")
+
             action = request.POST.get('action', '')
             idx = request.POST['prodid']
             # btncx = request.POST['BTNC']
@@ -32,7 +32,8 @@ def administration(request):
             imgx = request.POST['fileimage']
             labelx = request.POST['label']
             descriptionx = request.POST['description']
-            catx = Category.objects.get(label = request.POST['categ'])
+            print(request.POST['addcat'])
+            catx =  request.POST['addcat']
             pricex = request.POST['price']
             promox = request.POST['promo']
             beginx = request.POST['begin']
@@ -41,12 +42,18 @@ def administration(request):
             context['label'] = labelx
             print(context)
             if btnx == "addcat":
-                controlCategory()
-                createCategory(addcatx)
-                messages.add_message(request, messages.INFO, "Catégorie ajoutée")
-                return render(request, "administration.html", context)
+                print("addcat")
+                retour = controlCategory(catx)
+                if retour['result'] :
+                    createCategory(catx)
+                    messages.add_message(request, messages.INFO, "Catégorie ajoutée")
+                    return render(request, "administration.html", context)
+                else :
+                    context['errorline'] = retour.errorline
+                    return render(request, "administration.html", context)
+
             if btnx == "new":
-                if idx is not None:
+                if idx != "0":
                     messages.add_message(request, messages.INFO, "vous devez 'Effacer les champs' avant de 'créer produit'")
                     return render(request, "administration.html", context)
                 else:
@@ -175,8 +182,14 @@ def createCategory(categ):
     categx.save()
 
 
-def controlCategory():
-    print("control category")
+def controlCategory(cat):
+    if type(cat) != str:
+        print("categorie n'est pas une chaine")
+        return({'result': False, 'errorline': 'la catégorie doit être une chaine de caractère !'})
+    else :
+        return ({'result': True})
+
+
 
 
 def controleProduct():

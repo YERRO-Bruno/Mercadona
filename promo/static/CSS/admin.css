@@ -1,0 +1,55 @@
+/*.catbox {*/
+/*    display: none;*/
+/*}*/
+.labeladmin {
+    height: 80%;
+}
+.formulr {
+    width: 98%;
+    margin: 1em;
+    margin-top: 0;
+}
+#currentproduct {
+    width: 80%;
+}
+.changimage {
+    font-weight: bolder;
+}
+.btnfile {
+    position: absolute;
+    bottom: 0;
+}
+label {
+    font-weight: bolder;
+}
+#id_label {
+    height: 4vh;
+    width: 100%;
+}
+#id_description {
+    height: 20vh;
+    width: 100%;
+}
+#id_category {
+    width: 80%;
+
+}
+#id_price, #id_price_reduc {
+    height: 5vh;
+    width: 100%;
+}
+
+#currentimg, #currentimage {
+    height: 24vh;
+}
+.actions {
+    font-size: 2vh;
+    font-weight: bolder;
+}
+.boxcategory {
+
+;
+}
+.btncat {
+    height: 4vh;
+}

@@ -7,16 +7,17 @@ MERCODONA
 
 
 {% block style %}
-    <link rel="stylesheet" href="http://localhost:8080/CSS/index.css">
+    <link rel="stylesheet" href="/static/CSS/index.css">
 {%  endblock %}
 
 {%  block content %}
+    {%  load static %}
 
 
-       <ul class="gallery row m-4" id="product-list">
+    <ul class="gallery row m-4" id="product-list">
 
-       </ul>
+    </ul>
 
-    <script src="http://localhost:8080/JS/displayIndex.js"></script>
+    <script src="/static/JS/displayindex.js"></script>
 
 {%  endblock %}

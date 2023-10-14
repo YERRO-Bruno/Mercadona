@@ -5,30 +5,31 @@ MERCODONA-admin
 {%  endblock %}
 
 {% block style %}
-    <link  rel="stylesheet" href="http://localhost:8080/CSS/index.css">
-    <link rel="stylesheet" href="http://localhost:8080/CSS/admin.css">
+    <link  rel="stylesheet" href="/static/CSS/index.css">
+    <link rel="stylesheet" href="/static/CSS/admin.css">
 {%  endblock %}
 
 {%  block content %}
+    {%  load static %}
     <h4 class="col-12 labeladmin text-center m-0">ADMINISTRATION</h4>
-    <div class="formulr border m-3 border-primary" id="prodbox">
+    <h5 style="color: red">{{ errorline }}</h5>
+    <div class="formulr  m-0 ml-5 " id="prodbox" style="width: 100%">
 
-        <form class="row currentproduct m-1" id="currentproduct" method="post">
+        <form class="row currentproduct border border-primary m-0" id="currentproduct" style="width: 95%" method="post">
             {% csrf_token %}
             <div class="col-3 ">
-                <input class="prodid" id="id_prodid" name="prodid" value="{{ prodid }} type="hidden>
-                <input class="fileimage" id="id_fileimage" name="fileimage" type="hidden">
-                <ul class="list-unstyled">
-                    <li>
-                        <img class="currentimg" src="http://localhost:8080/images/${prodimg}" id="currentimg">
-                    </li>
-                    <li>
-                        <button type="submit" id="btnimage" name="action" value="upload">Charger image</button>
-                        <input type="file" id="imageInput" accept="image/*" value="jj.jpg" enctype="multipart/form-data"/>
-                    </li>
+                <input class="prodid" id="id_prodid" name="prodid" value=0 type="hidden" >
+                <input class="fileimage" id="id_fileimage" name="fileimage" type="hidden" >
+                <ul class="imgcour" id="imgcour">
+
                 </ul>
+                <div class=" boximg d-flex flex-column list-unstyled">
+                        <img class="currentimg" src=`/static/images/${prodimg}` id="currentimg">
+                        <input class="btnfile  mt-2 align-self-bottom " type="file" id="imageInput"
+                               accept="image/*" value="jj.jpg" enctype="multipart/form-data" style="vertical-align: bottom"/>
+                   </div>
             </div>
-            <ul class="col-3 list-unstyled">
+            <ul class="col-2 list-unstyled">
                 <div class="">
                     <label class="" for="id_label">Label:</label>
                     <input class="" type="text" name="label" maxlength="64" id="id_label" value="{{ label }}">
@@ -73,46 +74,40 @@ MERCODONA-admin
                 <br>
                 <div class="col-12 actions">
                     <div>
-                        <button type="submit" value="new" name="BTN" >Créer produit</button>
+                        <button class="" type="submit" value="new" name="BTN" >Créer produit</button>
                     </div>
                     <br>
                     <div>
-                        <button type="submit" value="suppr" name="BTN" >Supprimer produit</button>
+                        <button class="" type="submit" value="suppr" name="BTN" >Supprimer produit</button>
                     </div>
                     <br>
                     <div>
-                        <button type="submit" value="updat" name="BTN" >Modifier produit</button>
+                        <button class="" type="submit" value="updat" name="BTN" >Modifier produit</button>
                     </div>
                     <br>
                     <div>
-                        <button type="submit" value="raz" name="BTN" >Effacer les champs</button>
+                        <button class="" type="submit" id="btnraz" name="action" value="raz">Effacer les champs</button>
                     </div>
                 </div>
             </ul>
-            <ul class="col-1 list-unstyled">
-                 <div class="boxcategory border border-primary">
-                    <label class="" for="id_addcat">Nouvelle catégorie:</label>
-                    <input class="" name="addcat" maxlength="64" id="id_addcat"
-                    value="{{ add_desc }}"></input>
-                     <br>
-                    <button class="mt-2" value="addcat" type="submit" name="BTN">Ajouter categorie</button>
+            <ul class="col-2">
+                 <div class="boxcategory border border-primary mt-3 " style="width: 14vw">
+                     <div class="m-3" >
+                         <label class="" for="id_addcat">Nouvelle catégorie:</label>
+                         <input class="" name="addcat" maxlength="64" id="id_addcat"
+                                value="{{ add_desc }}"></input>
+                         <button class="mt-1" style="width:130px" value="addcat" type="submit" name="BTN">Ajout categorie</button>
+                     </div>
                 </div>
             </ul>
         </form>
     </div>
-    <div class="m-1 border border-primary" id="catbox" >
-        <span>CATEGORY</span>
-            <div class="categc" name="categc" id="id_categoryc">
-
-            </div>
-    </div>
-
     <ul class="gallery col-12 row m-2" id="product-list">
 
     </ul>
 
-    <script src="http://localhost:8080/JS/displayIndex.js"></script>
-    <script src="http://localhost:8080/JS/displayAdmin.js"></script>
+    <script src="/static/JS/displayindex.js"></script>
+    <script src="/static/JS/displayAdmin.js"></script>
 
 
 {%  endblock %}
