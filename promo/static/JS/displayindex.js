@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                         </div>
                                         
                                         <div class="mx-auto text-center" id="id_vignette3">
-                                            <img class="img_product" src="http://localhost:8080/${prodimg}">
+                                            <img class="img_product" src="static/images/${prodimg}">
                                             
                                         </div>
                                         <div class="descript" id="id_vignette4">
