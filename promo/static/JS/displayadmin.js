@@ -35,7 +35,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const gallery = document.getElementById("product-list");
     gallery.addEventListener("click", function (event) {
-        alert("click")
         var imgfils = (document.getElementById("currentimg"))
         if (imgfils) {
             imgfils.remove()
@@ -63,7 +62,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 id_prod = tabelement[i].parentNode.id
             }
         }
-        alert("trouvé")
         fillcurrentproduct(id_prod)
     })
 
@@ -109,6 +107,12 @@ document.addEventListener("DOMContentLoaded", function () {
     btnimg.addEventListener("click", function (e) {
         e.preventDefault()
         alert("click")
+        productlist = document.getElementById("product-list")
+        picturelist = document.getElementById("picture-list")
+        alert("2")
+        productList.style.display = "none"
+        pictureList.style.display = "block"
+        alert("3")
     })
 
 

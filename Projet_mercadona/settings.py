@@ -29,8 +29,6 @@ if IS_HEROKU_APP:
     DEBUG = False
 else:
     DEBUG = True
-print(DEBUG)
-
 
 if DEBUG:
     ALLOWED_HOSTS = []
