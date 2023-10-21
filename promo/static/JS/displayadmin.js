@@ -7,10 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // liste categorie du bloc  administration produit
     const currentCategory = document.getElementById("id_category");
     const imgcour = document.getElementById("currentimg")
-    // alert("admin")
-    console.log("admin")
-
-    function fillcurrentCategories() {
+       function fillcurrentCategories() {
         alert("fillcat")
         // Sélécteur de catégorie
         $.ajax({
@@ -21,15 +18,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 var i = 0;
                 data.forEach(category => {
                     const option = document.createElement("option");
-
-                    // option.value = data[i].id;
                     option.textContent = data[i].label;
-                    // optionc.textContent = data[i].label;
                     currentCategory.appendChild(option);
-                    //$(".categc").append(categc);
                     i++
                 });
-                document.getElementById("id_category").value = null
+                document.getElementById("id_category").value = data[0].label
+                document.getElementById("id_addcat").value = data[0].label
             },
             error: function (xhr, status, error) {
                 console.error("Problème de récupération des catégories :", xhr, status, error);
@@ -42,7 +36,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const gallery = document.getElementById("product-list");
     gallery.addEventListener("click", function (event) {
         var imgfils = (document.getElementById("currentimg"))
-        imgfils.remove()
+        if (imgfils) {
+            imgfils.remove()
+        }
         const currentproduct = document.getElementById("currentproduct")
         const tabid = []
         idClicked = event.target
@@ -69,13 +65,6 @@ document.addEventListener("DOMContentLoaded", function () {
         fillcurrentproduct(id_prod)
     })
 
-    window.addEventListener("load", function() {
-    // Code JavaScript à exécuter après le chargement complet de toutes les ressources
-        var idx = document.getElementById("id_prodid").value
-        fillcurrentproduct(parseInt(idx))
-    });
-
-
     //recuperation et traitement du produit courant
     function fillcurrentproduct(idprod) {
         $.ajax({
@@ -87,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("id_prodid").value = product.id
 
                 var imghtml = `
-                    <img class="imgproduct" id="currentimg" src="/static/images/${product.image}">
+                    <img class="imgproduct" id="currentimg" src="http://localhost:8080/${product.image}">
                 `;
                 imgnew = $(".imgcour").append(imghtml)
                 document.getElementById("id_fileimage").value = product.image
@@ -113,50 +102,13 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         })
     }
-    document.getElementById("imageInput").addEventListener("change", function (e) {
-        e.preventDefault();
-        var boutonimg = document.getElementById("btnimage");
-        uploadimage()
+    // gallery.addEventListener("click", function (event) {
+    btnimg = document.getElementById("imageInput");
+    btnimg.addEventListener("click", function (e) {
+        e.preventDefault()
+        alert("click")
     })
 
-    async function uploadimage() {
-        var fileInput = document.getElementById("imageInput");
-        var file = fileInput.files[0];
-        // alert("image1")
-        if (file) {
-            var formData = new FormData();
-            formData.append("image", file);
-            var csrfToken = getCookie('csrftoken');
-            // fetch("http://127.0.0.1:8000/promo/administration/upload_image/", {
-            await fetch("/promo/administration/upload_image/", {
-                method: "POST",
-                body: formData,
-                headers: {
-                    "X-CSRFToken": csrfToken // Inclure le jeton CSRF dans l'en-tête
-                },
-            })
-                .then(response => response.json())
-                .then(data => {
-                    // suppression image actuellement affiché
-                    var imgfils = (document.getElementById("currentimg"))
-                        imgfils.remove()
-                    //recupération nom de fichier
-                    const fileimg = document.getElementById("imageInput").files[0].name;
-                    alert(fileimg)
-                    //affichage image téléchargé
-                    document.getElementById("id_fileimage").value =fileimg
-                    var imghtml = `
-                    <img class="imgproduct" id="currentimg" src="/static/images/${fileimg}">
-                    `;
-                    imgnew = $(".imgcour").append(imghtml)
-
-                })
-                .catch(error => {
-                    console.error(error);
-                    alert(error)
-                });
-        }
-    }
 
     document.getElementById("btnraz").addEventListener("click", function (e) {
         e.preventDefault();

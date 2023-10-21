@@ -42,6 +42,13 @@ label {
     font-size: 2vh;
     font-weight: bolder;
 }
+.boximg {
+    position: relative;
+}
+.btnfile {
+    position: absolute;
+    bottom: 0;
+}
 .boxcategory {
     width: 300%;
 ;

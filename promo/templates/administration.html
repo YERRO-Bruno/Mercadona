@@ -17,16 +17,17 @@ MERCODONA-admin
 
         <form class="row currentproduct border border-primary m-0" id="currentproduct" style="width: 95%" method="post">
             {% csrf_token %}
-            <div class="col-3 ">
+            <div class="boximg col-2 ">
                 <input class="prodid" id="id_prodid" name="prodid" value=0 type="hidden" >
                 <input class="fileimage" id="id_fileimage" name="fileimage" type="hidden" >
-                <ul class="imgcour" id="imgcour">
+                <div class="list-unstyled row justify-content-center">
+                    <ul class="imgcour col-12 row justify-content-center" id="imgcour">
 
-                </ul>
-                <div class=" boximg d-flex flex-column list-unstyled">
-                        <img class="currentimg" src="/static/images/${prodimg}" id="currentimg">
-                        <input class="btnfile  mt-2 align-self-bottom " type="file" id="imageInput"
-                               accept="image/*" value="jj.jpg" enctype="multipart/form-data" style="vertical-align: bottom"/>
+                    </ul>
+                    {#                      <img class="currentimg" src="/static/images/${prodimg}" id="currentimg">#}
+                    <button class="btnfile col-8 " type="submit" id="imageInput">Choisir image</button>
+{#                  <input class="btnfile  mt-2 align-self-bottom " type="file" id="imageInput"#}
+{#                               accept="image/*" value="jj.jpg" enctype="multipart/form-data" style="vertical-align: bottom"/>#}
                    </div>
             </div>
             <ul class="col-2 list-unstyled">

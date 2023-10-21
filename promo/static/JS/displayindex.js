@@ -31,7 +31,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //affichage produit courant
     function fillOneProduct(prodid, prodcat, prodlab, prodimg, proddsc, prodprice, prodpromo) {
-        //alert("oneproduct")
         if (categoryFilter.value == 'all' || prodcat == categoryFilter.value) {
 
             if ((promochek.checked == false) || (promochek.checked == true && prodpromo == "promo")) {
@@ -49,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                         </div>
                                         
                                         <div class="mx-auto text-center" id="id_vignette3">
-                                            <img class="img_product" src="/static/images/${prodimg}">
+                                            <img class="img_product" src="http://localhost:8080/${prodimg}">
                                             
                                         </div>
                                         <div class="descript" id="id_vignette4">
