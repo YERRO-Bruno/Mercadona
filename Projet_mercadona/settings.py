@@ -15,13 +15,6 @@ import dj_database_url
 import environ
 from django.core.management.utils import get_random_secret_key
 
-DEBUG = True
-
-# env = environ.Env(  # <-- Updated!
-#     # set casting, default value
-#     DEBUG=(bool, False),
-# )
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -32,15 +25,17 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', default=get_random_secret_key()
 # https://devcenter.heroku.com/articles/heroku-ci#immutable-environment-variables
 IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
 # SECURITY WARNING: don't run with debug turned on in production!
-if not IS_HEROKU_APP:
-    DEBUG = True
-else:
-    DEBUG = False
-
 if IS_HEROKU_APP:
-    ALLOWED_HOSTS = ["*"]
+    DEBUG = False
 else:
+    DEBUG = True
+print(DEBUG)
+
+
+if DEBUG:
     ALLOWED_HOSTS = []
+else:
+    ALLOWED_HOSTS = ["*"]
 
 CSRF_TRUSTED_ORIGINS = ['https://*.fly.dev']
 # Application definition
