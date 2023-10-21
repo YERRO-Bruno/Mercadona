@@ -14,11 +14,11 @@ from .views import redirect
 import os
 
 def index(request):
-    print(DEBUG)
+    # print(DEBUG)
     return render(request , "index.html")
 
 def administration(request):
-    print(DEBUG)
+    # print(DEBUG)
     emailx = request.session.get('email')
     passwordx = request.session.get('password')
 
