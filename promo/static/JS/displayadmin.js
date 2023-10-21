@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const gallery = document.getElementById("product-list");
     gallery.addEventListener("click", function (event) {
+        alert("click")
         var imgfils = (document.getElementById("currentimg"))
         if (imgfils) {
             imgfils.remove()
@@ -61,6 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 id_prod = tabelement[i].parentNode.id
             }
         }
+        alert("trouvé")
         fillcurrentproduct(id_prod)
     })
 
