@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const currentCategory = document.getElementById("id_category");
     const imgcour = document.getElementById("currentimg")
        function fillcurrentCategories() {
-        alert("fillcat")
         // Sélécteur de catégorie
         $.ajax({
             url: '/promo/api/categories',
@@ -76,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("id_prodid").value = product.id
 
                 var imghtml = `
-                    <img class="imgproduct" id="currentimg" src="http://localhost:8080/${product.image}">
+                    <img class="imgproduct" id="currentimg" src="https://ik.imagekit.io/kpvotazbj/${product.image}">
                 `;
                 imgnew = $(".imgcour").append(imghtml)
                 document.getElementById("id_fileimage").value = product.image
