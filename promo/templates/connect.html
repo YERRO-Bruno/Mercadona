@@ -23,8 +23,7 @@ MERCODONA
         <h1 class="text-center">Inscription</h1>
         <h6 class="texterror text-center">{{ errorLogin }}</h6>
         <form  class="justify-content-center" method="post">
-
-
+            {% csrf_token %}
             <div class="row">
                 <div class="col-4"></div>
                 <p class="col-4 row">
