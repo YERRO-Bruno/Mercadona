@@ -25,63 +25,64 @@ def administration(request):
     passwordx = request.session.get('password')
 
     if request.method == 'POST':
-        print("admin")
-        print(request.session.get('email'))
-        emailx = request.session.get('email')
-        passwordx = request.session.get('password')
-        userConnected = authenticate(email=emailx, password=passwordx)
-        if userConnected is not None:
-            print("connect")
-            login(request, userConnected)
-            action = request.POST.get('action', '')
-            idx = request.POST['prodid']
-            btnx = request.POST['BTN']
-            addcatx = request.POST['addcat']
-            imgx = request.POST['fileimage']
-            labelx = request.POST['label']
-            descriptionx = request.POST['description']
-            print(request.POST['addcat'])
-            catx =  request.POST['categ']
-            pricex = request.POST['price']
-            promox = request.POST['promo']
-            beginx = request.POST['begin']
-            endx = request.POST['end']
-            context= {}
-            context['prodid'] = idx
-            context['label'] = labelx
-            # print(context)
-            if btnx == "addcat":
-                print("addcat")
-                retour = controlCategory(catx)
-                if retour['result'] :
-                    createCategory(catx)
-                    messages.add_message(request, messages.INFO, "Catégorie ajoutée")
-                    return render(request, "administration.html", context)
-                else :
-                    context['errorline'] = retour.errorline
-                    return render(request, "administration.html", context)
+        if request.user.is_authenticated:
+            print("admin")
+            print(request.session.get('email'))
+            emailx = request.session.get('email')
+            passwordx = request.session.get('password')
+            userConnected = authenticate(email=emailx, password=passwordx)
+            if userConnected is not None:
+                print("connect")
+                login(request, userConnected)
+                action = request.POST.get('action', '')
+                idx = request.POST['prodid']
+                btnx = request.POST['BTN']
+                addcatx = request.POST['addcat']
+                imgx = request.POST['fileimage']
+                labelx = request.POST['label']
+                descriptionx = request.POST['description']
+                print(request.POST['addcat'])
+                catx =  request.POST['categ']
+                pricex = request.POST['price']
+                promox = request.POST['promo']
+                beginx = request.POST['begin']
+                endx = request.POST['end']
+                context= {}
+                context['prodid'] = idx
+                context['label'] = labelx
+                # print(context)
+                if btnx == "addcat":
+                    print("addcat")
+                    retour = controlCategory(catx)
+                    if retour['result'] :
+                        createCategory(catx)
+                        messages.add_message(request, messages.INFO, "Catégorie ajoutée")
+                        return render(request, "administration.html", context)
+                    else :
+                        context['errorline'] = retour.errorline
+                        return render(request, "administration.html", context)
 
-            if btnx == "new":
-                print("create")
-                if idx != "0":
-                    messages.add_message(request, messages.INFO, "vous devez 'Effacer les champs' avant de 'créer produit'")
-                    return render(request, "administration.html", context)
-                else:
+                if btnx == "new":
+                    print("create")
+                    if idx != "0":
+                        messages.add_message(request, messages.INFO, "vous devez 'Effacer les champs' avant de 'créer produit'")
+                        return render(request, "administration.html", context)
+                    else:
+                        controleProduct()
+                        print("create2")
+                        createProduct(labelx, descriptionx, catx, imgx, pricex,promox, beginx, endx)
+                        print(imgx)
+                        messages.add_message(request, messages.INFO, "Produit ajoutéé")
+                        return render(request, "administration.html")
+                if btnx == "updat":
                     controleProduct()
-                    print("create2")
-                    createProduct(labelx, descriptionx, catx, imgx, pricex,promox, beginx, endx)
-                    print(imgx)
-                    messages.add_message(request, messages.INFO, "Produit ajoutéé")
+                    updateProduct(idx, labelx, descriptionx, catx, imgx, pricex, promox, beginx, endx)
+                    messages.add_message(request, messages.INFO, "Produit modifié")
+                    return render(request, "administration.html", context)
+                if btnx == "suppr":
+                    deleteProduct(idx)
+                    messages.add_message(request, messages.INFO, "Produit supprimé")
                     return render(request, "administration.html")
-            if btnx == "updat":
-                controleProduct()
-                updateProduct(idx, labelx, descriptionx, catx, imgx, pricex, promox, beginx, endx)
-                messages.add_message(request, messages.INFO, "Produit modifié")
-                return render(request, "administration.html", context)
-            if btnx == "suppr":
-                deleteProduct(idx)
-                messages.add_message(request, messages.INFO, "Produit supprimé")
-                return render(request, "administration.html")
         else:
             messages.add_message(request, messages.INFO, "Vous n' êtes pas connecté")
             return redirect("/promo/connect")
