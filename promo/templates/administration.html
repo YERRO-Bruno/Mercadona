@@ -26,9 +26,7 @@ MERCODONA-admin
                     </ul>
                     {#                      <img class="currentimg" src="/static/images/${prodimg}" id="currentimg">#}
                     <button class="btnfile col-8 " type="submit" id="imageInput">Choisir image</button>
-{#                  <input class="btnfile  mt-2 align-self-bottom " type="file" id="imageInput"#}
-{#                               accept="image/*" value="jj.jpg" enctype="multipart/form-data" style="vertical-align: bottom"/>#}
-                   </div>
+                </div>
             </div>
             <ul class="col-2 list-unstyled">
                 <div class="">
@@ -103,14 +101,23 @@ MERCODONA-admin
             </ul>
         </form>
     </div>
-    <ul class="gallery col-12 row m-2" id="product-list">
+    <div id="id_catalog_products">
+        <p class="m-0 ml-1" style="height: 2vh">CATALOGUE PRODUITS</p>
+        <ul class="gallery col-12 row ml-2" id="product-list">
 
-    </ul>
-    <ul class="imagekit col-12 row m-2" id="picture-list" style="display: none">
+        </ul>
+    </div>
+    <div id="id_catalog_pictures">
+        <p style="height: 2vh">CATALOGUE PHOTOS</p>
+        <ul class="imagekit col-12 row " id="picture-list">
 
-
-    </ul>
-
+        </ul>
+    </div>
+    <script>
+        const listimage = JSON.parse("{{ listimg|safe|escapejs }}")
+        {#var listimg = "testXX"#}
+    </script>
     <script src="/static/JS/displayindex.js"></script>
     <script src="/static/JS/displayadmin.js"></script>
+
 {%  endblock %}

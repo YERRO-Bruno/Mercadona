@@ -11,7 +11,9 @@ from django.http import HttpResponse
 from django.template import RequestContext
 from django.template.context_processors import csrf
 from .views import redirect
-import os
+import os, json
+from django.conf import settings
+
 
 def index(request):
     # print(DEBUG)
@@ -84,8 +86,7 @@ def administration(request):
             messages.add_message(request, messages.INFO, "Vous n' êtes pas connecté")
             return redirect("/promo/connect")
     else:
-        return render(request , "administration.html")
-
+        return render(request , "administration.html", {"listimg": json.dumps(settings.LIST_FILES)})
 
 
 def logout(request):

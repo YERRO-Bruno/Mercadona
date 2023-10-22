@@ -14,6 +14,7 @@ from pathlib import Path
 import dj_database_url
 import environ
 from django.core.management.utils import get_random_secret_key
+from imagekitio import ImageKit
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -150,3 +151,18 @@ STORAGES = {
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+imagekit = ImageKit(
+    public_key='public_JqHpBljMCPzQEgTZ61Yz++1LfKs=',
+    private_key='private_LJ/YlRNoJAL8T7FAPZl/aNAw+qk=',
+    url_endpoint = 'https://ik.imagekit.io/kpvotazbj'
+)
+listfiles = imagekit.list_files()
+i = 0
+LIST_FILES = []
+for picture in listfiles.list:
+    LIST_FILES.append(listfiles.list[i].name)
+    i +=1
+print(LIST_FILES)
+
+
