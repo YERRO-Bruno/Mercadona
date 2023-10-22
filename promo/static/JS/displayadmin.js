@@ -1,4 +1,3 @@
-alert("admin")
 document.addEventListener("DOMContentLoaded", function () {
     const categoryFilter = document.getElementById("category-filter");
     const productList = document.getElementById("product-list");
@@ -31,7 +30,6 @@ document.addEventListener("DOMContentLoaded", function () {
     productCatalog.style.display = ""
 
     //écoute evenement clic sur un produit
-    alert("clicproduit")
     const gallery = document.getElementById("product-list");
     gallery.addEventListener("click", function (event) {
         alert("clicproduit1")
