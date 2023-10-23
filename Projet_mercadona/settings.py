@@ -11,14 +11,18 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 from pathlib import Path
+<<<<<<< HEAD
 import dj_database_url
 import environ
 from django.core.management.utils import get_random_secret_key
 from imagekitio import ImageKit
+=======
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+<<<<<<< HEAD
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', default=get_random_secret_key())
 #The `DYNO` env var is set on Heroku CI, but it's not a real Heroku app, so we have to
@@ -37,6 +41,21 @@ else:
     ALLOWED_HOSTS = ["*"]
 
 CSRF_TRUSTED_ORIGINS = ['https://*.fly.dev']
+=======
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+ALLOWED_HOSTS = []
+
+
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
 # Application definition
 
 INSTALLED_APPS = [
@@ -45,7 +64,10 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+<<<<<<< HEAD
     'whitenoise.runserver_nostatic',
+=======
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
     'django.contrib.staticfiles',
     'promo.apps.PromoConfig',
     'rest_framework',
@@ -54,7 +76,10 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+<<<<<<< HEAD
     'whitenoise.middleware.WhiteNoiseMiddleware',
+=======
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -68,7 +93,11 @@ ROOT_URLCONF = 'Projet_mercadona.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+<<<<<<< HEAD
         'DIRS': [BASE_DIR, 'promo/templates']
+=======
+        'DIRS': [BASE_DIR / 'templates']
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -82,6 +111,7 @@ TEMPLATES = [
     },
 ]
 
+<<<<<<< HEAD
 WSGI_APPLICATION = 'Projet_mercadona.wsgi.application'
 
 # Database
@@ -100,6 +130,30 @@ AUTH_USER_MODEL = 'promo.User'
 
 # CSRF_COOKIE_SECURE = False
 # SESSION_COOKIE_SECURE = False
+=======
+
+WSGI_APPLICATION = 'Projet_mercadona.wsgi.application'
+
+
+# Database
+# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "Mercadona_DB",
+        "USER": "postgres",
+        "PASSWORD": "superposgres",
+        "HOST": "127.0.0.1",
+        "PORT": "5432"
+    }
+}
+
+AUTH_USER_MODEL = 'promo.User'
+
+#CSRF_COOKIE_SECURE = False
+#SESSION_COOKIE_SECURE = False
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -119,6 +173,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -130,10 +188,15 @@ USE_I18N = True
 
 USE_TZ = True
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
+<<<<<<< HEAD
 # STATICFILES_DIRS = BASE_DIR / "staticfiles"
 
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
@@ -146,11 +209,19 @@ STORAGES = {
     },
 }
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+=======
+STATICFILES_DIRS = [
+os.path.join(BASE_DIR, "static")
+]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+<<<<<<< HEAD
 
 imagekit = ImageKit(
     public_key='public_JqHpBljMCPzQEgTZ61Yz++1LfKs=',
@@ -166,3 +237,5 @@ for picture in listfiles.list:
 print(LIST_FILES)
 
 
+=======
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b

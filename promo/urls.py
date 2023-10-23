@@ -18,7 +18,11 @@ urlpatterns = [
                 path("api/categories/", views.api_categories, name="api_categories"),
                 path("api/", include(router.urls)),
                 path('administration/upload_image/', views.upload_image, name='upload_image'),
+<<<<<<< HEAD
                 ]
                 # ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+=======
+                ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
 
 

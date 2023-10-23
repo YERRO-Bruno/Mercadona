@@ -3,7 +3,10 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from .managers import UserManager
+<<<<<<< HEAD
 from django.db import DatabaseError
+=======
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -52,6 +55,7 @@ class Category(models.Model):
     def __str__(self):
         return str(self.label)
 
+<<<<<<< HEAD
     def create_category(label: string):
         if label == "" or label is None:
             return None
@@ -92,6 +96,8 @@ class Category(models.Model):
 
 
 
+=======
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
 
 class Product(models.Model):
     product_label = models.CharField(max_length=24)

@@ -15,6 +15,13 @@
 .changimage {
     font-weight: bolder;
 }
+<<<<<<< HEAD
+=======
+.btnfile {
+    position: absolute;
+    bottom: 0;
+}
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
 label {
     font-weight: bolder;
 }
@@ -23,7 +30,11 @@ label {
     width: 100%;
 }
 #id_description {
+<<<<<<< HEAD
     height: 10vh;
+=======
+    height: 20vh;
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
     width: 100%;
 }
 #id_category {
@@ -35,13 +46,18 @@ label {
     width: 100%;
 }
 
+<<<<<<< HEAD
 #currentimg {
+=======
+#currentimg, #currentimage {
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
     height: 24vh;
 }
 .actions {
     font-size: 2vh;
     font-weight: bolder;
 }
+<<<<<<< HEAD
 .boximg {
     position: relative;
 }
@@ -52,4 +68,12 @@ label {
 .boxcategory {
     width: 300%;
 ;
+=======
+.boxcategory {
+
+;
+}
+.btncat {
+    height: 4vh;
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
 }

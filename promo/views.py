@@ -10,6 +10,7 @@ from .managers import UserManager
 from django.http import HttpResponse
 from django.template import RequestContext
 from django.template.context_processors import csrf
+<<<<<<< HEAD
 from .views import redirect
 import os, json
 from django.conf import settings
@@ -88,6 +89,72 @@ def administration(request):
             return redirect("/promo/connect")
     else:
         return render(request , "administration.html", {"listimg": json.dumps(settings.LIST_FILES)})
+=======
+import os
+
+def index(request):
+    return render(request , "index.html")
+
+def administration(request):
+    if request.user.is_authenticated:
+        userx=request.user
+        context = {}
+        context.update(csrf(request))
+        context.update({'login':'logged'})
+        if request.method == 'POST':
+
+            action = request.POST.get('action', '')
+            idx = request.POST['prodid']
+            # btncx = request.POST['BTNC']
+            # print(btnc)
+            btnx = request.POST['BTN']
+            addcatx = request.POST['addcat']
+            imgx = request.POST['fileimage']
+            labelx = request.POST['label']
+            descriptionx = request.POST['description']
+            print(request.POST['addcat'])
+            catx =  request.POST['addcat']
+            pricex = request.POST['price']
+            promox = request.POST['promo']
+            beginx = request.POST['begin']
+            endx = request.POST['end']
+            context['prodid'] = idx
+            context['label'] = labelx
+            print(context)
+            if btnx == "addcat":
+                print("addcat")
+                retour = controlCategory(catx)
+                if retour['result'] :
+                    createCategory(catx)
+                    messages.add_message(request, messages.INFO, "Catégorie ajoutée")
+                    return render(request, "administration.html", context)
+                else :
+                    context['errorline'] = retour.errorline
+                    return render(request, "administration.html", context)
+
+            if btnx == "new":
+                if idx != "0":
+                    messages.add_message(request, messages.INFO, "vous devez 'Effacer les champs' avant de 'créer produit'")
+                    return render(request, "administration.html", context)
+                else:
+                    controleProduct()
+                    createProduct(labelx, descriptionx, catx, imgx, pricex,promox, beginx, endx)
+                    messages.add_message(request, messages.INFO, "Produit ajoutéé")
+                    return render(request, "administration.html")
+            if btnx == "updat":
+                controleProduct()
+                updateProduct(idx, labelx, descriptionx, catx, imgx, pricex, promox, beginx, endx)
+                messages.add_message(request, messages.INFO, "Produit modifié")
+                return render(request, "administration.html", context)
+            if btnx == "suppr":
+                deleteProduct(idx)
+                messages.add_message(request, messages.INFO, "Produit supprimé")
+                return render(request, "administration.html")
+        return render(request , "administration.html", context)
+    else:
+        messages.add_message(request, messages.INFO, "Vous n' êtes pas connecté")
+        return redirect("/promo/connect")
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
 
 
 def logout(request):
@@ -116,12 +183,22 @@ def register(request):
                 # suppression de l'enregistrememnt du code de verification et de l'email associée
                 verif_admins[i].delete()
                 #connexion
+<<<<<<< HEAD
                 return redirect('/promo/connect')
        #Pas autentifié
        messages.add_message(request, messages.INFO, "Vous n' avez pas été authentifié." )
        return redirect('/promo/register')
     else:
         return render(request, 'register.html')
+=======
+                login(request, userConnected)
+                messages.add_message(request, messages.INFO, "Vous êtes connecté.")
+                return redirect('/promo/administration')
+       #Pas autentifié
+       messages.add_message(request, messages.INFO, "Vous n' avez pas été authentifié." )
+       return redirect('/promo/register')
+
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
 
 def connect(request):
     if request.method == 'POST':
@@ -129,11 +206,16 @@ def connect(request):
         passwordx = request.POST['password']
         userConnected = authenticate(email=emailx, password=passwordx)
         if userConnected is not None:
+<<<<<<< HEAD
             print("connect")
             login(request, userConnected )
             request.session['email'] = emailx
             request.session['password'] = passwordx
 
+=======
+            login(request, userConnected )
+            messages.add_message(request, messages.INFO, "Vous êtes connecté.")
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
             return redirect('/promo/administration')
         else:
             messages.add_message(request, messages.INFO, "Vous n' avez pas été authentifié")
@@ -162,11 +244,18 @@ class ProductViewSet(viewsets.ModelViewSet):
 
 
 def createProduct(prodlab, proddesc, prodcat, prodimg, prodprice, prodreduc, prodbegin, prodend):
+<<<<<<< HEAD
         print ("createprod")
         prodx = Product()
         prodx.product_label = prodlab
         prodx.description = proddesc
         prodx.category = Category.objects.get(label=prodcat)
+=======
+        prodx = Product()
+        prodx.product_label = prodlab
+        prodx.description = proddesc
+        prodx.category = prodcat
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
         prodx.image = prodimg
         prodx.price = prodprice
         prodx.reduction = prodreduc

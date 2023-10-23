@@ -17,6 +17,7 @@ MERCODONA-admin
 
         <form class="row currentproduct border border-primary m-0" id="currentproduct" style="width: 95%" method="post">
             {% csrf_token %}
+<<<<<<< HEAD
             <div class="boximg col-2 ">
                 <input class="prodid" id="id_prodid" name="prodid" value=0 type="hidden" >
                 <input class="fileimage" id="id_fileimage" name="fileimage" type="hidden" >
@@ -27,6 +28,19 @@ MERCODONA-admin
                     {#                      <img class="currentimg" src="/static/images/${prodimg}" id="currentimg">#}
                     <button class="btnfile col-8 " type="submit" id="imageInput">Choisir image</button>
                 </div>
+=======
+            <div class="col-3 ">
+                <input class="prodid" id="id_prodid" name="prodid" value=0 type="hidden" >
+                <input class="fileimage" id="id_fileimage" name="fileimage" type="hidden" >
+                <ul class="imgcour" id="imgcour">
+
+                </ul>
+                <div class=" boximg d-flex flex-column list-unstyled">
+                        <img class="currentimg" src=`/static/images/${prodimg}` id="currentimg">
+                        <input class="btnfile  mt-2 align-self-bottom " type="file" id="imageInput"
+                               accept="image/*" value="jj.jpg" enctype="multipart/form-data" style="vertical-align: bottom"/>
+                   </div>
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
             </div>
             <ul class="col-2 list-unstyled">
                 <div class="">
@@ -101,6 +115,7 @@ MERCODONA-admin
             </ul>
         </form>
     </div>
+<<<<<<< HEAD
     <div id="id_catalog_products">
         <p class="m-0 ml-1" style="height: 2vh">CATALOGUE PRODUITS</p>
         <ul class="gallery col-12 row ml-2" id="product-list">
@@ -119,5 +134,14 @@ MERCODONA-admin
     </script>
     <script src="/static/JS/displayindex.js"></script>
     <script src="/static/JS/displayadmin.js"></script>
+=======
+    <ul class="gallery col-12 row m-2" id="product-list">
+
+    </ul>
+
+    <script src="/static/JS/displayindex.js"></script>
+    <script src="/static/JS/displayAdmin.js"></script>
+
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
 
 {%  endblock %}

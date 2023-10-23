@@ -39,6 +39,10 @@ height: 20vh;
 .vignette {
     margin: 1vh;
     max-height: 45vh;
+<<<<<<< HEAD
     height: 80vh;
+=======
+    height: 100vh;
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
 }
 

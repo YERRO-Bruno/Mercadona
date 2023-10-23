@@ -5,8 +5,11 @@ MERCODONA
 {%  endblock %}
 
 {% block style %}
+<<<<<<< HEAD
     {%  load static %}
     <link  rel="stylesheet" href="/static/CSS/index.css">
+=======
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
     <link rel="stylesheet" href="/static/CSS/connect.css">
 {%  endblock %}
 
@@ -15,15 +18,26 @@ MERCODONA
     <div >
         <h5 class="avert text-center">l' authentifiction est réservée à l'administration du site.
             Si vous n'êtes pas administrateur du site,
+<<<<<<< HEAD
             <a href="/promo">veuillez fermer ce formulaire.</a>
             <br>
             Vous êtes administrateur et n'avez pas encore de compte,
             <a href="/promo/register">Inscrivez-vous.</a>
+=======
+            <a href="http://localhost:8000/promo">veuillez fermer ce formulaire.</a>
+            <br>
+            Vous êtes administrateur et n'avez pas encore de compte,
+            <a href="http://localhost:8000/promo/register">Inscrivez-vous.</a>
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
         </h5>
         <h1 class="text-center">Inscription</h1>
         <h6 class="texterror text-center">{{ errorLogin }}</h6>
         <form  class="justify-content-center" method="post">
             {% csrf_token %}
+<<<<<<< HEAD
+=======
+
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
             <div class="row">
                 <div class="col-4"></div>
                 <p class="col-4 row">

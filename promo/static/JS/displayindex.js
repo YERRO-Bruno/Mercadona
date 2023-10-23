@@ -31,6 +31,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //affichage produit courant
     function fillOneProduct(prodid, prodcat, prodlab, prodimg, proddsc, prodprice, prodpromo) {
+<<<<<<< HEAD
+=======
+        //alert("oneproduct")
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
         if (categoryFilter.value == 'all' || prodcat == categoryFilter.value) {
 
             if ((promochek.checked == false) || (promochek.checked == true && prodpromo == "promo")) {
@@ -48,7 +52,11 @@ document.addEventListener("DOMContentLoaded", function () {
                                         </div>
                                         
                                         <div class="mx-auto text-center" id="id_vignette3">
+<<<<<<< HEAD
                                             <img class="img_product" src="https://ik.imagekit.io/kpvotazbj/${prodimg}">
+=======
+                                            <img class="img_product" src="/static/images/${prodimg}">
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
                                             
                                         </div>
                                         <div class="descript" id="id_vignette4">
