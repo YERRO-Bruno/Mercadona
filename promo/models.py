@@ -3,6 +3,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from .managers import UserManager
+from django.db import DatabaseError
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -50,6 +51,46 @@ class Category(models.Model):
 
     def __str__(self):
         return str(self.label)
+
+    def create_category(label: string):
+        if label == "" or label is None:
+            return None
+
+        categories = Category.objects.filter(label=label)
+        if categories.exists:
+            return None
+
+        try:
+            category = Category()
+            category.label = label
+            category.save()
+            return category
+        except DatabaseError:
+            print("ERROR TEST")
+            return None
+
+
+    def update_category(self, category_id, label):
+        try:
+            category = Category.objects.get(id=category_id)
+            if category:
+                category.label = label
+                category.save()
+                return category
+        except (Category.DoesNotExist, DatabaseError):
+            return None
+
+    def delete_category(self, category_id):
+        try:
+            category = Category.objects.get(id=category_id)
+            if category:
+                category.delete()
+                return True
+        except (Category.DoesNotExist, DatabaseError):
+            return False
+
+
+
 
 
 class Product(models.Model):
